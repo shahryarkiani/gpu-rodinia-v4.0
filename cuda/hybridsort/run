@@ -1,1 +1,19 @@
+#!/bin/bash
+
+# Simple test cases for hybridsort
+
+echo "Running hybridsort tests..."
+
+# Case 1: Random 4M elements
+echo -e "\n1. Testing with 4M random elements:"
 ./hybridsort r
+
+# Case 2: Small sample (100 elements)
+echo -e "\n2. Testing with small sample (100 elements):"
+./hybridsort ../../data/hybridsort/100.txt
+
+# Case 3: Medium sample (500K elements)
+echo -e "\n3. Testing with medium sample (500K elements):"
+./hybridsort ../../data/hybridsort/500000.txt
+
+echo -e "\nAll tests completed."
