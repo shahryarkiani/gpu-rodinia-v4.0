@@ -75,18 +75,6 @@ Each entropy type is available in multiple sizes:
 - **1MB** - Standard benchmark size
 - **4MB** - Large scale performance
 
-## 🔧 Requirements for Generator
-
-**Python dependencies:**
-```bash
-pip install numpy
-```
-
-**System requirements:**
-- Python 3.6 or later
-- ~50MB free space for generated files
-- RAM: ~100MB during generation
-
 ## Usage Tips
 
 **For compression testing:**
