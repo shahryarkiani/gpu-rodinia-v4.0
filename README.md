@@ -2,7 +2,7 @@
 
 ## Documentation
 
-### 📄 **[Rodinia BFS Report](https://drive.google.com/file/d/1bnj3lVTmmjsZ-c9gJl_UhUW7wr3oCc2J/view?usp=sharing)** – Full technical analysis of BFS modernization
+### 📄 **[Rodinia BFS Report](https://drive.google.com/file/d/1i8x5kvpJm-GqTta-PAp6gsCNFZhNlsTO/view?usp=drivesdk)** – Full technical analysis of BFS modernization
 
 ### 🎞️ **[BFS Presentation Slides](https://docs.google.com/presentation/d/1xvqU5VuZZwTaW6En_GH2kvEB1uqpemKHGwTH0Ou_qU4/edit?usp=sharing)** – Slide deck summarizing key findings
 
