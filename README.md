@@ -1,5 +1,10 @@
 # Modernizing Rodinia Benchmark Suite v4.0 for Contemporary GPUs
 
+Original Rodinia Link: https://rodinia.cs.virginia.edu/
+
+Download Link: https://www.cs.virginia.edu/~skadron/lava/rodinia/downloads.html
+
+
 ## Documentation
 
 ### 📄 **[Rodinia BFS Report](https://drive.google.com/file/d/1i8x5kvpJm-GqTta-PAp6gsCNFZhNlsTO/view?usp=drivesdk)** – Full technical analysis of BFS modernization
