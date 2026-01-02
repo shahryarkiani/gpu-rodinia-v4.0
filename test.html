@@ -1,0 +1,263 @@
+---
+layout: archive
+title: "📚 Teaching Assistant"
+permalink: /teaching/
+author_profile: true
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Scale content to 80% but keep navigation normal size */
+        #main,
+        .page__content,
+        body > p {
+            font-size: 14px; /* 16px * 0.8 = 12.8px */
+        }
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 12px 24px; /* 15px->12px, 30px->24px */
+            border: none;
+        }
+        td {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            background-color: #fff;
+            border-radius: 4px; /* 5px->4px */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 16px; /* 20px->16px */
+        }
+        td:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            font-size: 20px; /* ~25px default->20px */
+            margin: 0 0 8px 0; /* 10px->8px */
+            padding: 0 8px; /* 10px->8px */
+            text-align: left;
+        }
+        h2, p {
+            margin: 0 0 8px 0;
+            padding: 0 8px;
+            text-align: left;
+            font-size: 14px
+        }
+        .course-card {
+            margin-bottom: 32px; /* 40px->32px */
+            width: 100%;
+        }
+        .course-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .course-date {
+            font-size: 20px;
+            color: black;
+            font-weight: bold;
+            margin: 0;
+            position: relative;
+            top: -4px;
+        }
+        .highlight-semester {
+            color: #2563eb; /* Blue color for Spring 2026 */
+        }
+
+        /* Mobile responsive styles */
+        @media screen and (max-width: 768px) {
+            table {
+                border-spacing: 8px 16px; /* Reduce spacing on mobile */
+            }
+            td {
+                padding: 12px; /* Reduce padding on mobile */
+            }
+            h1 {
+                font-size: 16px; /* Smaller title on mobile */
+                padding: 0 4px;
+                margin: 0 0 6px 0;
+            }
+            h2, p {
+                padding: 0 4px;
+            }
+            .course-header {
+                flex-direction: column; /* Stack title and date vertically */
+                align-items: flex-start; /* Align to left */
+                gap: 8px; /* Add spacing between title and date */
+            }
+            .course-date {
+                font-size: 16px; /* Smaller date text on mobile */
+                position: static; /* Reset position */
+                margin: 0;
+                padding: 0 4px;
+            }
+            .course-card {
+                margin-bottom: 16px; /* Reduce card spacing on mobile */
+            }
+            #main,
+            .page__content,
+            body > p {
+                font-size: 16px; /* Slightly larger base font for readability on mobile */
+            }
+        }
+
+        /* Extra small mobile devices */
+        @media screen and (max-width: 480px) {
+            table {
+                border-spacing: 4px 12px;
+            }
+            td {
+                padding: 8px;
+            }
+            h1 {
+                font-size: 14px;
+            }
+            .course-date {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<br> 
+
+<p>As a Teaching Assistant, I love helping students learn and grow, and I enjoy making learning fun and interesting.</p>
+        
+<p>For me, it is about inspiring students to be curious, confident, and comfortable in their learning journey.</p>
+
+<p>My role involves providing support to students during lectures, grading assignments, holding office hours, and organizing learning materials.</p>
+
+<p>Being a Teaching Assistant has not only allowed me to deepen my understanding of the material but also to contribute meaningfully to the academic success of my peers.</p>
+    
+<p>Below are the courses I have been a Teaching Assistant for:</p>
+
+    <table>
+        <!-- CS 3130 TA Class -->
+        <tr class="course-card">
+            <td onclick="window.location='https://www.cs.virginia.edu/~cr4bd/3130/S2026/';" style="cursor: pointer;">
+                <div class="course-header">
+                    <h1>CS 3130 - Computer Systems and Organization II</h1>
+                    <p class="course-date">Spring 2025 & Fall 2025 & <span class="highlight-semester">Spring 2026</span></p>
+                </div>
+                <p>Conduct weekly lab sessions on CPU design, memory hierarchy, and I/O systems.</p>
+                <p>Hold office hours and staff meetings to support students and enhance the curriculum.</p>
+            </td>
+        </tr>
+
+        <!-- CS 2130 TA Class -->
+        <tr class="course-card">
+            <td onclick="window.location='https://uva-cs.github.io/cso1-f25/syllabus.html';" style="cursor: pointer;">
+                <div class="course-header">
+                    <h1>CS 2130 - Computer Systems and Organization I</h1>
+                    <p class="course-date"><span class="highlight-semester">Spring 2026</span></p>
+                </div>
+                <p>Assisting students with low-level programming in C and Assembly, data storage in memory, and hardware design from gates and registers through general-purpose computers.</p>
+                <p>Holding office hours, grading assignments, and providing support on legal, ethical, and security issues related to computer systems.</p>
+            </td>
+        </tr>
+
+        <!-- CS 2120 TA Class -->
+        <tr class="course-card">
+            <td onclick="window.location='https://uvadmt.github.io/';" style="cursor: pointer;">
+                <div class="course-header">
+                    <h1>CS 2120 - Discrete Mathematics and Theory I</h1>
+                    <p class="course-date"><span class="highlight-semester">Spring 2026</span></p>
+                </div>
+                <p>Holding office hours and manual grading assignments, focusing on mathematical proofs, logic, and discrete structures.</p>
+                <p>Attending weekly TA meetings, conducting review sessions, and assisting with exam proctoring to support student learning.</p>
+            </td>
+        </tr>
+
+        <!-- APMA 2501 TA Class -->
+        <tr class="course-card">
+            <td>
+                <div class="course-header">
+                    <h1>APMA 2501 - Programming with MATLAB & R</h1>
+                    <p class="course-date">Fall 2024 & Spring 2025</p>
+                </div>
+                <p>Assisting students with MATLAB and R programming, focusing on basic concepts, calculus applications, and data analysis.</p>
+                <p>Designing homework problems and configuring an autograder for both MATLAB and R.</p>
+            </td>
+        </tr>
+
+        <!-- CS 1110 TA Class -->
+        <tr class="course-card">
+            <td>
+                <div class="course-header">
+                    <h1>CS 1110 - Intro to Programming (Python)</h1>
+                    <p class="course-date">Fall 2024 & Spring 2025 & Fall 2025</p>
+                </div>
+                <p>Supporting students with Python programming, lab exercises, and a final data analysis project. Focused on teaching core programming concepts and debugging techniques.</p>
+                <p>Responding to Piazza questions and providing help with debugging code during one-on-one office hours.</p>
+            </td>
+        </tr>
+
+
+        <!-- Probability TA Class -->
+        <tr class="course-card">
+            <td>
+                <div class="course-header">
+                    <h1>APMA 3100 - Probability</h1>
+                    <p class="course-date">Spring 2025</p>
+                </div>
+                <p>Assisting students with fundamental probability concepts, including random variables, probability distributions, expectation, statistical inference, p-value and significance testing, focusing on problem-solving and applications.</p>
+                <p>Conducting review sessions, grading assignments, providing one-on-one support, and helping with solving applied projects to enhance students' understanding of probabilistic reasoning and its real-world applications.</p>
+            </td>
+        </tr>
+
+        <!-- Linear Algebra TA Class -->
+        <tr class="course-card">
+            <td>
+                <div class="course-header">
+                    <h1>APMA 3080 - Linear Algebra</h1>
+                    <p class="course-date">Fall 2024</p>
+                </div>
+                <p>Helping students with visualization and understanding of linear algebra concepts, focusing on problem-solving, debugging, and computational thinking through MATLAB Programming.</p>
+                <p>Develop a MATLAB app for concept visualization and homework assistance, serving as a practical tool for lecture demonstrations and verifying solutions.</p>
+            </td>
+        </tr>
+        
+
+        <!-- ODE TA Class -->
+        <tr class="course-card">
+            <td>
+                <div class="course-header">
+                    <h1>APMA 2130 - Ordinary Differential Equations</h1>
+                    <p class="course-date">Spring 2024 & Summer 2025</p>
+                </div>
+                <p>Assisting students with solving first-order and second-order differential equations, systems of ODEs, and applying methods such as separation of variables, integrating factors, and Laplace transforms.</p>
+                <p>Created review sheet solutions and provided one-on-one support to enhance student understanding of key ODE concepts and applications in real-world problems.</p>
+            </td>
+        </tr>
+
+        <!-- Calculus III TA Class -->
+        <tr class="course-card">
+            <td>
+                <div class="course-header">
+                    <h1>APMA 2120 - Multivariable Calculus</h1>
+                    <p class="course-date">Fall 2023 & Spring 2024</p>
+                </div>
+                <p>Assisting students with multivariable calculus concepts, including vector calculus, partial derivatives, and multiple integrals, while guiding them through complex problem-solving.</p>
+                <p>Develop a MATLAB app for concept visualization and homework assistance, serving as a practical tool for lecture demonstrations and verifying solutions.</p>
+            </td>
+        </tr>
+
+        <!-- Physics I TA Class -->
+        <tr class="course-card">
+            <td>
+                <div class="course-header">
+                    <h1>PHYS 1425 - Introductory Physics 1 for Engineers</h1>
+                    <p class="course-date">Fall 2023</p>
+                </div>
+                <p>Assisting students with fundamental physics concepts, including kinematics, dynamics, energy conservation, rotational motion, fluids, waves, and thermodynamics, while helping with problem-solving and real-world applications.</p>
+                <p>Facilitate discussions meetings and provide feedback through quiz grading and one-on-one student support.</p>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
