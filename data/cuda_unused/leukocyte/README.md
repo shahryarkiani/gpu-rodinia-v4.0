@@ -12,7 +12,7 @@ The leukocyte benchmark requires the following data files:
 
 ## Data Availability
 
-**The video data for this workload is available in the [GitHub release](https://github.com/huygnguyen04/gpu-rodinia-v4.0/releases/tag/leukocyte-sample-data).**
+**The video data for this workload is available in the [Box Folder](https://virginia.box.com/s/gvyjdq8qt9ei0ojyd3itokngq7pr2al2).**
 
 Due to the large size of the video files, they are not included in the main repository but can be downloaded from the project's GitHub releases page.
 

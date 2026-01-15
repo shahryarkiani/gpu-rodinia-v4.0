@@ -15,7 +15,7 @@ bin/mummergpu ../../data/mummergpu/NC_003997.fna ../../data/mummergpu/NC_003997_
 - **NC_003997.fna**: Bacillus anthracis str. Ames complete genome FASTA. Used as a full-size reference.
 - **NC_003997.20k.fna**: Smaller subset of the NC_003997 reference for quick tests.
 - **NC_003997_q25bp.50k.fna**: 50,000 synthetic reads of length 25 bp sampled from `NC_003997.fna` (multi‑FASTA).
-- **NC_003997_q100bp.fna**: Synthetic reads of length 100 bp sampled from `NC_003997.fna` (large file; stress testing) - available on https://github.com/huygnguyen04/gpu-rodinia-v4.0/releases/tag/mummergpu-sample-data
+- **NC_003997_q100bp.fna**: Synthetic reads of length 100 bp sampled from `NC_003997.fna` (large file; stress testing) - available on https://virginia.box.com/s/gvyjdq8qt9ei0ojyd3itokngq7pr2al2
 - **genreads.py**: Utility to generate synthetic reads from a reference.
 
 ### File formats
