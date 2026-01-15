@@ -1,0 +1,2 @@
+# python <file_name.gz> <outputfile>  --undirected --relabel --format rodinia --source 0
+python convert_dataset_to_csr.py web-Google.txt.gz web-Google.csr.txt  --undirected --relabel --format rodinia --source 0

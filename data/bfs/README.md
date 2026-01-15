@@ -1,209 +1,117 @@
 # BFS Graph Data Generation
 
-This directory contains tools for generating graph datasets for the Breadth-First Search (BFS) benchmark in the Rodinia suite.
+Tools for generating and converting graph datasets for the Rodinia BFS benchmark in CSR (Compressed Sparse Row) format.
 
-## Overview
+## Pre-Generated Datasets
 
-The BFS benchmark requires graph data in a specific format. This directory provides two equivalent graph generators:
-- **C++ version** (`graphgen.cpp`) - Original implementation
-- **Python version** (`graphgen.py`) - Python port with additional features
+**Download:** Pre-generated graph datasets are available at [https://virginia.box.com/s/gvyjdq8qt9ei0ojyd3itokngq7pr2al2](https://virginia.box.com/s/gvyjdq8qt9ei0ojyd3itokngq7pr2al2)  
+Available in both **CSR format** (ready for Rodinia) and **original format** (raw edge lists).
 
-Both generators create random graphs with configurable parameters for testing BFS algorithms on different graph sizes and structures.
+## Dataset Types
 
-## Tools Available
+1. **RMAT Synthetic Graphs** (`rmat_graphs/`) - Graph500-style scalable graphs using PaRMAT [1]
+2. **Real-World Graphs** (`dataset_graphs/`) - SNAP [2], DIMACS-10 [3,4], Network Repository [5]
+3. **Legacy Random Graphs** (`legacy_graphs/`) - Original simple random graph generator
 
-### Graph Generators
-- **`graphgen.cpp`** - C++ graph generator (requires compilation)
-- **`graphgen.py`** - Python graph generator (ready to use)
-- **`graphgen`** - Pre-compiled C++ binary (if available)
+## 1. RMAT Synthetic Graphs
 
-### Batch Generation Scripts
-- **`gen_dataset.sh`** - Generates multiple datasets using C++ version
-- **`gen_dataset_python.sh`** - Generates multiple datasets using Python version
+RMAT graphs mimic real-world network properties using PaRMAT [1] with Graph500 parameters `(A,B,C) = (0.57, 0.19, 0.19)`.
 
-### Build Tools
-- **`Makefile`** - For compiling the C++ generator
+**Scales:** 10K, 50K, 100K, 500K, 1M, 2M, 8M, 16M, 32M vertices  
+**Densities:** Sparse (EF=8) and Dense (EF=64) edge factors  
+**Properties:** Undirected, no duplicates, no self-loops, sorted
 
-## Building the C++ Generator
+### Usage
 
 ```bash
-make
+cd rmat_graphs
+./rmat_gen_sparse.sh    # Generates graph1k_sparse.txt, graph1M_sparse.txt, etc.
+./rmat_gen_dense.sh     # Generates graph1k_dense.txt, graph1M_dense.txt, etc.
+
+# Manual generation
+./PaRMAT_gen -nVertices 1000000 -nEdges 8000000 -a 0.57 -b 0.19 -c 0.19 \
+    -sorted -noDuplicateEdges -noEdgeToSelf -undirected -output rmat_1M.txt
+python3 convert_rmat_to_csr.py rmat_1M.txt graph1M.txt 0
 ```
 
-Or manually:
+## 2. Real-World Graphs
+
+Converts graphs from SNAP [2], DIMACS-10 [3,4], and Network Repository [5].
+
+**Supported:** cit-Patents, roadNet-CA, soc-LiveJournal1, web-Google, asia_osm, coAuthorDBLP, coPaperDBLP, nlpkkt200
+
+### Usage
+
 ```bash
-g++ -std=c++0x -fopenmp -o graphgen graphgen.cpp
+cd dataset_graphs/convert_script
+
+# Convert single dataset
+python3 convert_dataset_to_csr.py web-Google.txt.gz web-Google.csr.txt \
+    --undirected --relabel --format rodinia --source 0
+
+# Batch convert (see csr_convert_script.sh for examples)
+for dataset in cit-Patents roadNet-CA soc-LiveJournal1 web-Google; do
+    python3 convert_dataset_to_csr.py ${dataset}.txt.gz ${dataset}.csr.txt \
+        --undirected --relabel --format rodinia --source 0
+done
 ```
 
-## Graph Format
+**Options:** `--undirected`, `--relabel`, `--format rodinia`, `--source N`, `--one-based`, `--skip-comments`  
+**Formats:** Edge lists, `.gz`/`.bz2` compressed, 0/1-based indexing
 
-The generated graphs use the Rodinia BFS format:
+## 3. Legacy Random Graphs
+
+Simple random graph generator from original Rodinia suite.
+
+**Properties:** 2-4 edges/node, weights 1-10, undirected, may have duplicates/self-loops  
+**Scales:** 1K-16M nodes via batch scripts
+
+### Usage
+
+```bash
+cd legacy_graphs
+make  # Build C++ version
+
+# Generate single graph
+./graphgen 1000              # graph1000.txt
+python graphgen.py 1000      # graph1000.txt
+python graphgen.py 1000 --max-edges 6 --min-weight 5 --max-weight 20
+
+# Batch generation (1K to 16M nodes)
+./gen_dataset.sh             # C++ version (faster for large graphs)
+./gen_dataset_python.sh      # Python version
+```
+
+## Graph Format (Rodinia CSR)
 
 ```
 <num_nodes>
-<start_edge_index_1> <num_edges_1>
-<start_edge_index_2> <num_edges_2>
+<start_edge_idx> <num_edges>  # For each node
 ...
-<start_edge_index_n> <num_edges_n>
 
 <source_node>
 
 <total_edges>
-<destination_1> <weight_1>
-<destination_2> <weight_2>
+<dest> <weight>  # For each edge
 ...
-```
-
-## Usage
-
-### C++ Generator
-
-```bash
-# Basic usage
-./graphgen <num_nodes> [filename_suffix]
-
-# Examples
-./graphgen 1000                # Creates graph1000.txt
-./graphgen 1000 test           # Creates graphtest.txt
-./graphgen 50000 50k           # Creates graph50k.txt
-```
-
-### Python Generator
-
-```bash
-# Basic usage
-python graphgen.py <num_nodes> [filename_suffix] [options]
-
-# Examples
-python graphgen.py 1000                           # Creates graph1000.txt
-python graphgen.py 1000 test                      # Creates graphtest.txt
-python graphgen.py 1000 --max-edges 6             # More edges per node
-python graphgen.py 1000 --min-weight 5 --max-weight 20  # Custom weights
-```
-
-#### Python Generator Options
-
-- `--min-edges N` - Minimum edges per node (default: 2)
-- `--max-edges N` - Maximum edges per node (default: 4)  
-- `--min-weight N` - Minimum edge weight (default: 1)
-- `--max-weight N` - Maximum edge weight (default: 10)
-
-### Batch Generation
-
-Generate multiple standard dataset sizes:
-
-```bash
-# Using C++ generator
-./gen_dataset.sh
-
-# Using Python generator  
-./gen_dataset_python.sh
-```
-
-Both scripts generate graphs with these sizes:
-- 1K, 2K, 4K, 8K, 16K, 32K, 64K nodes
-- 128K, 256K, 512K nodes  
-- 1M, 2M, 4M, 8M, 16M nodes
-
-## Graph Properties
-
-### Default Parameters
-- **Minimum nodes:** 20
-- **Edges per node:** 2-4 (randomly chosen)
-- **Edge weights:** 1-10 (randomly chosen)
-- **Graph type:** Undirected (edges added in both directions)
-
-### Characteristics
-- Graphs may contain **multiple edges** between the same nodes
-- Graphs may contain **self-loops**
-- Graphs are **not guaranteed to be connected**
-- Average edges per node: ~6 (2 × max_init_edges × 2 directions)
-
-## Generated Files
-
-Each generator creates files named `graph<suffix>.txt` where suffix can be:
-- The number of nodes (default)
-- A custom string provided as argument
-
-### Example Datasets
-```bash
-graph1k.txt      # 1,024 nodes
-graph16k.txt     # 16,384 nodes  
-graph1M.txt      # 1,048,576 nodes
-graph8M.txt      # 8,388,608 nodes
-```
-
-## Performance Considerations
-
-### Memory Usage
-- **C++ version:** More memory efficient for large graphs
-- **Python version:** Easier to use but uses more memory
-
-### Generation Time
-- Small graphs (< 100K nodes): Both versions are fast
-- Large graphs (> 1M nodes): C++ version is significantly faster
-
-### Recommended Usage
-- **Development/Testing:** Use Python version for flexibility
-- **Large-scale datasets:** Use C++ version for performance
-- **Automated pipelines:** Use batch scripts
-
-## Graph Statistics
-
-When generating graphs, both tools display:
-- Number of nodes
-- Total number of edges
-- Average edges per node
-
-## File Size Estimates
-
-Approximate output file sizes:
-- 1K nodes: ~50KB
-- 16K nodes: ~800KB  
-- 1M nodes: ~50MB
-- 8M nodes: ~400MB
-
-## Integration with BFS Benchmark
-
-These graph files can be used directly with the Rodinia BFS benchmark:
-
-```bash
-# Navigate to BFS CUDA implementation
-cd ../../cuda/bfs
-
-# Build BFS benchmark
-make
-
-# Run with generated graph
-./bfs ../../data/bfs/graph1M.txt
 ```
 
 ## Troubleshooting
 
-### Common Issues
+**RMAT:** Requires PaRMAT (https://github.com/farkhor/PaRMAT), Python 3 + NumPy, sufficient RAM for large graphs  
+**Real-World:** Use `--relabel` for node ID issues, `--one-based` for 1-based indexing  
+**Legacy:** Requires num_nodes ≥ 20, C++11 support, executable permissions on scripts (`chmod +x *.sh`)
 
-1. **"Invalid argument" error:** Ensure num_nodes ≥ 20
-2. **Compilation errors:** Check C++11 support (`-std=c++0x`)
-3. **Permission denied:** Make scripts executable (`chmod +x *.sh`)
-4. **Memory issues:** For very large graphs (>16M nodes), ensure sufficient RAM
+## References
 
-### Validation
+[1] F. Khorasani, R. Gupta, and L. N. Bhuyan, "Scalable SIMD-Efficient Graph Processing on GPUs," *PACT 2015*.
 
-To verify generated graphs:
-1. Check file format matches specification
-2. Verify edge count consistency
-3. Ensure all node references are within valid range
+[2] J. Leskovec and A. Krevl, "SNAP Datasets: Stanford Large Network Dataset Collection," 2014. http://snap.stanford.edu/data
 
-## Technical Details
+[3] D. A. Bader et al., "Benchmarking for Graph Clustering and Partitioning," *Encyclopedia of Social Network Analysis and Mining*, Springer, 2014.
 
-### Algorithm
-1. For each node, randomly choose 2-4 outgoing edges
-2. For each edge, randomly select destination and weight
-3. Add reciprocal edge to maintain undirected property
-4. Output in Rodinia BFS format with adjacency list structure
+[4] D. A. Bader et al. (eds.), *Graph Partitioning and Graph Clustering: 10th DIMACS Implementation Challenge*, AMS, 2013.
 
-### Random Number Generation
-- **C++ version:** Uses TR1 linear congruential engine + standard rand()
-- **Python version:** Uses Python's random module with equivalent distribution
+[5] R. A. Rossi and N. K. Ahmed, "The Network Data Repository," *AAAI 2015*. https://networkrepository.com
 
-Both generators should produce statistically similar graphs for the same parameters.
+**Resources:** PaRMAT (https://github.com/farkhor/PaRMAT), DIMACS-10 (http://www.cc.gatech.edu/dimacs10/downloads.shtml), Graph500 (https://graph500.org)

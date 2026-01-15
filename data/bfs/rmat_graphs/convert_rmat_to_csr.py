@@ -36,7 +36,7 @@ def convert_rmat_to_rodinia(input_file, output_file, source_node=0):
     """
     print(f"Reading RMAT edge list from {input_file}...")
     
-    # Read edge list - optimized for speed
+    # Read edge list
     try:
         edges = np.loadtxt(input_file, dtype=np.int32, ndmin=2)
         if edges.shape[0] == 0:
@@ -145,6 +145,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
