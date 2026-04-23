@@ -1,0 +1,2 @@
+# rocm/lud_rocm -i ../../data/lud/256.dat 
+rocm/lud_rocm -s 256 -v
