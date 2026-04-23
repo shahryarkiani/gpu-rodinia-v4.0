@@ -5,7 +5,7 @@ SRC = hotspot.hip
 EXE = hotspot
 
 release: $(SRC)
-	$(CC) $(KERNEL_DIM) $(SRC) -o $(EXE)
+	$(CC) $(KERNEL_DIM) $(SRC) -o $(EXE) -O3
 
 enum: $(SRC)
 	$(CC) $(KERNEL_DIM) -deviceemu $(SRC) -o $(EXE)
