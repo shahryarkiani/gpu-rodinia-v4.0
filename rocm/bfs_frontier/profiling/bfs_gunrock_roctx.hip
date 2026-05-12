@@ -108,7 +108,7 @@ __global__ void bfs_push_medium(
     const int n = *medN;
 
     // global warp id & total warps
-    const int lanes_per_warp = 32;
+    const int lanes_per_warp = 64;
     const int lane           = threadIdx.x & (lanes_per_warp - 1);
     const int warps_per_block= blockDim.x / lanes_per_warp;
     const int warp_in_block  = threadIdx.x / lanes_per_warp;
@@ -128,7 +128,7 @@ __global__ void bfs_push_medium(
                 int base;
                 if (lane == 0) base = atomicAdd(nextF_sz, count);
                 base = __shfl(base, 0);
-                int offs = __popcll(mask & ((1u << lane) - 1));
+                int offs = __popcll(mask & ((1ull << lane) - 1));
                 if (is_new) {
                     nextF[base + offs] = u;
                     dist[u] = level + 1;
@@ -146,7 +146,7 @@ __global__ void bfs_push_large(
     uint32_t* __restrict__ visited, int* __restrict__ dist, int level)
 {
     const int n = *largeN;
-    const int lane = threadIdx.x & 31;
+    const int lane = threadIdx.x & 63;
 
     for (int bid = blockIdx.x; bid < n; bid += gridDim.x) { // grid-stride over CTAs
         int v   = largeQ[bid];
@@ -162,7 +162,7 @@ __global__ void bfs_push_large(
                 int base;
                 if (lane == 0) base = atomicAdd(nextF_sz, count);
                 base = __shfl(base, 0);
-                int offs = __popcll(mask & ((1u << lane) - 1));
+                int offs = __popcll(mask & ((1ull << lane) - 1));
                 if (is_new) {
                     nextF[base + offs] = u;
                     dist[u] = level + 1;
